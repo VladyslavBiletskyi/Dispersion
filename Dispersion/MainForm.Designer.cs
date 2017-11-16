@@ -32,6 +32,8 @@
             this.experimentDataGridView = new System.Windows.Forms.DataGridView();
             this.groupValuesGridView = new System.Windows.Forms.DataGridView();
             this.experimentBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.button1 = new System.Windows.Forms.Button();
+            this.dispersionResult = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.experimentDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupValuesGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.experimentBindingSource)).BeginInit();
@@ -62,11 +64,31 @@
             // 
             this.experimentBindingSource.DataSource = typeof(Dispersion.Dto.Experiment);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(13, 457);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "Calculate dispersion";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // dispersionResult
+            // 
+            this.dispersionResult.AutoSize = true;
+            this.dispersionResult.Location = new System.Drawing.Point(124, 462);
+            this.dispersionResult.Name = "dispersionResult";
+            this.dispersionResult.Size = new System.Drawing.Size(58, 13);
+            this.dispersionResult.TabIndex = 3;
+            this.dispersionResult.Text = "FillMeLater";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(735, 501);
+            this.Controls.Add(this.dispersionResult);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.groupValuesGridView);
             this.Controls.Add(this.experimentDataGridView);
             this.Name = "MainForm";
@@ -75,6 +97,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.groupValuesGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.experimentBindingSource)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -83,6 +106,8 @@
         private System.Windows.Forms.DataGridView experimentDataGridView;
         private System.Windows.Forms.BindingSource experimentBindingSource;
         private System.Windows.Forms.DataGridView groupValuesGridView;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label dispersionResult;
     }
 }
 
