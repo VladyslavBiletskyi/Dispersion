@@ -21,14 +21,16 @@ namespace Dispersion
                 columnCount.ShowDialog();
                 for (var i = 0; i < ColumnCount; i++)
                 {
-                    dataGridView1.Columns.Add("F" + (i + 1), "F" + (i + 1));
+                    experimentDataGridView.Columns.Add("F" + (i + 1), "F" + (i + 1));
+                    groupValuesGridView.Columns.Add("F" + (i + 1), "F" + (i + 1));
                 }
+                groupValuesGridView.Rows.Add();
             }
         }
 
         private void DataGridView1_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
         {
-            if (dataGridView1.Rows.Count > experimentResults.Count)
+            if (experimentDataGridView.Rows.Count > experimentResults.Count)
             {
                 experimentResults.Add(new Experiment
                 {
@@ -41,7 +43,32 @@ namespace Dispersion
         private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             var experiment = experimentResults[e.RowIndex];
-            experiment.Results[e.ColumnIndex] = Double.Parse((string)dataGridView1[e.ColumnIndex, e.RowIndex].Value);
+            experiment.Results[e.ColumnIndex] = GetColumnValue(e.ColumnIndex, e.RowIndex);
+            RecomputeGroup(e.ColumnIndex);
+        }
+
+        private void RecomputeGroup(int columnIndex)
+        {
+            double result = 0;
+            for (int i = 0; i < experimentDataGridView.RowCount; i++)
+            {
+                result += GetColumnValue(columnIndex, i);
+            }
+            groupValuesGridView[columnIndex, 0].Value = result / (experimentDataGridView.RowCount - 1);
+        }
+
+        private double GetColumnValue(int columnIndex, int rowIndex)
+        {
+            double result = 0;
+            try
+            {
+                result = Double.Parse((string)experimentDataGridView[columnIndex, rowIndex].Value);
+            }
+            catch
+            {
+                result = 0;
+            }
+            return result;
         }
     }
 }
