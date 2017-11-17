@@ -70,5 +70,71 @@ namespace Dispersion
             }
             return result;
         }
+
+        private void calculateButton_Click(object sender, EventArgs e)
+        {
+            double averageSum = CalculateAveregeSum();
+            double totalAmountOfSquaresOfDeviations =
+                TotalAmountOfSquaresOfDeviations(averageSum);
+            double factorSumOfTheSquaresOfGroupAverageDeviations =
+                FactorSumOfTheSquaresOfGroupAverageDeviations(averageSum);
+
+            double residualAmount = totalAmountOfSquaresOfDeviations - factorSumOfTheSquaresOfGroupAverageDeviations;
+
+
+            double factorDispersion = (factorSumOfTheSquaresOfGroupAverageDeviations
+                                       / (experimentDataGridView.ColumnCount - 1));
+
+            double residualDispersion = (residualAmount
+                                         / experimentDataGridView.ColumnCount * (experimentDataGridView.RowCount - 1 - 1));
+
+            dispersionResult.Text = $"S заг = {totalAmountOfSquaresOfDeviations}," +
+                                    $" S факт = {factorSumOfTheSquaresOfGroupAverageDeviations}," +
+                                    $" S зал = {residualAmount}, факторная дисперсия^2 = {factorDispersion}," +
+                                    $" остаточная дисперсия^2 = {residualDispersion}";
+
+        }
+
+        private double CalculateAveregeSum()
+        {
+            double result = 0;
+            for (int i = 0; i < groupValuesGridView.ColumnCount; i++)
+            {
+                result += (double)groupValuesGridView[i, 0].Value;
+            }
+            result /= groupValuesGridView.ColumnCount;
+            return result;
+        }
+
+        private double TotalAmountOfSquaresOfDeviations(double averageSum)
+        {
+            double result = 0;
+
+            foreach (var experiment in experimentResults)
+            {
+                foreach (double res in experiment.Results)
+                {
+                    if (res == 0)
+                    {
+                        continue;
+                    }
+                    result += Math.Pow((res - averageSum), 2);
+                }
+            }
+
+            return result;
+        }
+
+        private double FactorSumOfTheSquaresOfGroupAverageDeviations(double averageSum)
+        {
+            double result = 0;
+
+            for (int i = 0; i < groupValuesGridView.ColumnCount; i++)
+            {
+                result += (experimentDataGridView.RowCount - 1) *
+                          Math.Pow((double)groupValuesGridView[i, 0].Value - averageSum, 2);
+            }
+            return result;
+        }
     }
 }
