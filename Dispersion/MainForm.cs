@@ -73,6 +73,11 @@ namespace Dispersion
 
         private void calculateButton_Click(object sender, EventArgs e)
         {
+            if (experimentDataGridView.RowCount < 2)
+            {
+                MessageBox.Show("Слишком мало данных!");
+                return;
+            }
             double averageSum = CalculateAveregeSum();
             double totalAmountOfSquaresOfDeviations =
                 TotalAmountOfSquaresOfDeviations(averageSum);
@@ -91,8 +96,18 @@ namespace Dispersion
             dispersionResult.Text = $"S заг = {totalAmountOfSquaresOfDeviations}," +
                                     $" S факт = {factorSumOfTheSquaresOfGroupAverageDeviations}," +
                                     $" S зал = {residualAmount}, факторная дисперсия^2 = {factorDispersion}," +
-                                    $" остаточная дисперсия^2 = {residualDispersion}";
+                                    $"\nостаточная дисперсия^2 = {residualDispersion}, \n";
 
+            var fCriteria = factorDispersion < residualDispersion
+                ? residualDispersion / factorDispersion
+                : factorDispersion / residualDispersion;
+
+            dispersionResult.Text += $"Fспост = {fCriteria} ";
+
+            var tableCriteria = FisherTable.Table[experimentDataGridView.RowCount - 2][experimentDataGridView.RowCount - 2];
+            dispersionResult.Text += $"Fкр = {tableCriteria}, ";
+
+            dispersionResult.Text += $"Влияние {(fCriteria < tableCriteria ? "не" : "")}значительное";
         }
 
         private double CalculateAveregeSum()

@@ -73,11 +73,10 @@
             // dispersionResult
             // 
             this.dispersionResult.AutoSize = true;
-            this.dispersionResult.Location = new System.Drawing.Point(124, 462);
+            this.dispersionResult.Location = new System.Drawing.Point(106, 457);
             this.dispersionResult.Name = "dispersionResult";
-            this.dispersionResult.Size = new System.Drawing.Size(58, 13);
+            this.dispersionResult.Size = new System.Drawing.Size(0, 13);
             this.dispersionResult.TabIndex = 3;
-            this.dispersionResult.Text = "FillMeLater";
             // 
             // MainForm
             // 
