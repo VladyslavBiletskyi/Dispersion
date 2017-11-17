@@ -104,7 +104,7 @@ namespace Dispersion
 
             dispersionResult.Text += $"Fспост = {fCriteria} ";
 
-            var tableCriteria = FisherTable.Table[experimentDataGridView.RowCount - 2][experimentDataGridView.RowCount - 2];
+            var tableCriteria = FisherTable.Table[experimentDataGridView.RowCount-2][experimentDataGridView.ColumnCount - 1];
             dispersionResult.Text += $"Fкр = {tableCriteria}, ";
 
             dispersionResult.Text += $"Влияние {(fCriteria < tableCriteria ? "не" : "")}значительное";
